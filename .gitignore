@@ -1,0 +1,6 @@
+.venv-origamidetection
+*.jpg
+*.png
+*.pt
+runs/segment/
+dataset/

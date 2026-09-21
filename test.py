@@ -13,3 +13,4 @@ for result in results:
     xy = result.masks.xy  # mask polygons in pixel coordinates
     xyn = result.masks.xyn  # normalized mask polygons
     masks = result.masks.data  # binary masks, shape (N,H,W), dtype torch.uint8
+
