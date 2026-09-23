@@ -408,6 +408,7 @@ def write_previews(out: Path, split: str, n: int):
 
 
 def main():
+    #to run in command line, all possible arguments
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", type=Path, default=Path("dataset"))
     ap.add_argument("--n-test", type=int, default=100)
