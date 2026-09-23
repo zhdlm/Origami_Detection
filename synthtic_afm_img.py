@@ -46,7 +46,7 @@ class Config:
 
     # --- dataset composition ----------------------------------------------- #
     negative_frac: float = 0.07           # background-only images (empty labels)
-    n_shapes: tuple = (1, 15)             # instances per image (inclusive)
+    n_shapes: tuple = (1, 150)             # instances per image (inclusive)
     touching_image_prob: float = 0.4      # images where touching/overlap allowed
 
     # --- shape geometry (pixels) ------------------------------------------- #
@@ -54,7 +54,7 @@ class Config:
     rect_aspect: tuple = (1.0, 3.0)
     tri_radius_px: tuple = (18, 48)       # circumradius
     tri_equilateral_prob: float = 0.5
-    edge_margin: int = 3                  # keep shapes fully inside the image
+    edge_margin: int = -3                  # keep shapes fully inside the image
     min_area_px: int = 80
 
     # --- placement ---------------------------------------------------------- #
@@ -410,6 +410,7 @@ def write_previews(out: Path, split: str, n: int):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--out", type=Path, default=Path("dataset"))
+    ap.add_argument("--n-test", type=int, default=100)
     ap.add_argument("--n-train", type=int, default=1000)
     ap.add_argument("--n-val", type=int, default=100)
     ap.add_argument("--seed", type=int, default=0)
@@ -422,6 +423,7 @@ def main():
     print(f"Generating into {args.out.resolve()} (seed={args.seed})")
     generate_split("train", args.n_train, 0, cfg, args.out, args.seed)
     generate_split("val", args.n_val, 1, cfg, args.out, args.seed)
+    generate_split("test", args.n_test, 1, cfg, args.out, args.seed)
     write_yaml(args.out)
     if args.preview > 0:
         write_previews(args.out, "train", args.preview)
